@@ -8,7 +8,8 @@ SRC = main.cpp \
 	  AForm.cpp \
 	  ShrubberyCreationForm.cpp \
 	  RobotomyRequestForm.cpp \
-	  PresidentialPardonForm.cpp
+	  PresidentialPardonForm.cpp \
+	  Intern.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
@@ -16,7 +17,8 @@ HEADERS = Bureaucrat.hpp \
 		  AForm.hpp \
 		  ShrubberyCreationForm.hpp \
 		  RobotomyRequestForm.hpp \
-		  PresidentialPardonForm.hpp
+		  PresidentialPardonForm.hpp \
+		  Intern.hpp
 
 all: $(NAME)
 
