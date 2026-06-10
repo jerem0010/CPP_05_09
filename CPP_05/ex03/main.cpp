@@ -1,7 +1,6 @@
 #include "Bureaucrat.hpp"
-#include "ShrubberyCreationForm.hpp"
-#include "RobotomyRequestForm.hpp"
-#include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
+#include "AForm.hpp"
 #include <cstdlib>
 #include <ctime>
 
@@ -9,43 +8,49 @@ int	main(void)
 {
 	std::srand(std::time(NULL));
 
-	std::cout << "--- Create bureaucrats ---" << std::endl;
+	Intern		intern;
 	Bureaucrat	boss("Boss", 1);
-	Bureaucrat	manager("Manager", 40);
-	Bureaucrat	intern("Intern", 150);
+	Bureaucrat	weak("Weak guy", 150);
 
-	std::cout << boss << std::endl;
-	std::cout << manager << std::endl;
-	std::cout << intern << std::endl;
+	AForm* shrub = intern.makeForm("shrubbery creation", "home");
+	AForm* robot = intern.makeForm("robotomy request", "Bender");
+	AForm* pardon = intern.makeForm("presidential pardon", "Arthur Dent");
+	AForm* unknown = intern.makeForm("coffee request", "Office");
 
-	std::cout << "\n--- Create forms ---" << std::endl;
-	ShrubberyCreationForm	shrub("home");
-	RobotomyRequestForm		robot("Bender");
-	PresidentialPardonForm	pardon("Arthur Dent");
+	std::cout << std::endl;
 
-	std::cout << shrub << std::endl;
-	std::cout << robot << std::endl;
-	std::cout << pardon << std::endl;
+	if (shrub)
+	{
+		std::cout << *shrub << std::endl;
+		boss.signForm(*shrub);
+		boss.executeForm(*shrub);
+	}
 
-	std::cout << "\n--- Try execute unsigned form ---" << std::endl;
-	boss.executeForm(shrub);
+	std::cout << std::endl;
 
-	std::cout << "\n--- Sign forms ---" << std::endl;
-	intern.signForm(shrub);
-	boss.signForm(shrub);
-	boss.signForm(robot);
-	boss.signForm(pardon);
+	if (robot)
+	{
+		std::cout << *robot << std::endl;
+		boss.signForm(*robot);
+		boss.executeForm(*robot);
+		boss.executeForm(*robot);
+	}
 
-	std::cout << "\n--- Execute with too low grade ---" << std::endl;
-	intern.executeForm(shrub);
-	manager.executeForm(robot);
-	manager.executeForm(pardon);
+	std::cout << std::endl;
 
-	std::cout << "\n--- Execute successfully ---" << std::endl;
-	boss.executeForm(shrub);
-	boss.executeForm(robot);
-	boss.executeForm(robot);
-	boss.executeForm(pardon);
+	if (pardon)
+	{
+		std::cout << *pardon << std::endl;
+		weak.signForm(*pardon);
+		weak.executeForm(*pardon);
+		boss.signForm(*pardon);
+		boss.executeForm(*pardon);
+	}
+
+	delete shrub;
+	delete robot;
+	delete pardon;
+	delete unknown;
 
 	return (0);
 }
